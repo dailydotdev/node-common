@@ -26,14 +26,14 @@ See [MODULES.md](./MODULES.md) for the full list of available modules.
 
 **Prerequisites:** Node.js 22+, pnpm
 
-| Script      | Command          | Description                      |
-| ----------- | ---------------- | -------------------------------- |
-| `build`     | `pnpm build`     | Build all modules to `dist/`     |
+| Script      | Command          | Description                        |
+| ----------- | ---------------- | ---------------------------------- |
+| `build`     | `pnpm build`     | Build all modules to `dist/`       |
 | `dev`       | `pnpm dev`       | Watch mode with automatic rebuilds |
-| `typecheck` | `pnpm typecheck` | Run TypeScript type checking     |
-| `lint`      | `pnpm lint`      | Lint the codebase                |
-| `lint:fix`  | `pnpm lint:fix`  | Lint and auto-fix issues         |
-| `format`    | `pnpm format`    | Format all files with Prettier   |
+| `typecheck` | `pnpm typecheck` | Run TypeScript type checking       |
+| `lint`      | `pnpm lint`      | Lint the codebase                  |
+| `lint:fix`  | `pnpm lint:fix`  | Lint and auto-fix issues           |
+| `format`    | `pnpm format`    | Format all files with Prettier     |
 
 ## License
 
