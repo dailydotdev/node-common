@@ -20,10 +20,7 @@ await sleep(1000); // pause for 1 second
 
 ## Modules
 
-| Module | Import Path                       | Description           |
-| ------ | --------------------------------- | --------------------- |
-| utils  | `@dailydotdev/node-common/utils`  | General utilities     |
-| logger | `@dailydotdev/node-common/logger` | Logging (coming soon) |
+See [MODULES.md](./MODULES.md) for the full list of available modules.
 
 ## Development
 
