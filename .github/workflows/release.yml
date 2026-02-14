@@ -1,0 +1,96 @@
+name: release
+run-name: >-
+  release `${{ github.event.inputs.version }}` version
+  ${{ github.ref_name != 'main' && format(' on `{0}`', github.ref_name) || '' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - 'major'
+          - 'minor'
+          - 'patch'
+
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Enable OIDC
+      pull-requests: write
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: chainguard-dev/actions/setup-gitsign@main
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Cache node_modules
+        id: cache-node_modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: pnpm-${{ runner.os }}-node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-node_modules-
+            pnpm-${{ runner.os }}-
+
+      - name: Install dependencies
+        if: steps.cache-node_modules.outputs.cache-hit != 'true'
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: Setup git
+        run: |
+          git config --global tag.gpgsign true
+
+      - name: Bump version
+        run: |
+          pnpm version ${{ github.event.inputs.version }} --sign-git-tag
+
+      - name: Publish to npm
+        run: |
+          set -euo pipefail
+
+          BRANCH="${GITHUB_REF_NAME}"
+
+          if [ "$BRANCH" = "main" ]; then
+            echo "Branch=$BRANCH, publishing with default dist-tag (latest)"
+            pnpm publish --access public --provenance
+            exit 0
+          fi
+
+          if echo "$BRANCH" | grep -Eq '^release/[0-9]+\.[0-9]+$'; then
+            MM="$(echo "$BRANCH" | sed -E 's|^release/([0-9]+\.[0-9]+)$|\1|')"
+            TAG="backport-${MM}"
+            echo "Branch=$BRANCH, publishing with dist-tag $TAG"
+            pnpm publish --access public --provenance --tag "$TAG"
+            exit 0
+          fi
+
+          echo "Branch=$BRANCH, publishing with dist-tag next"
+          pnpm publish --access public --provenance --tag next
+
+      - name: Push changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          git push --follow-tags
+          gh release create "v${VERSION}" --generate-notes
