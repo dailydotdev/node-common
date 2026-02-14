@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Shared packages for daily.dev Node.js projects",
   "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dailydotdev/node-common.git"
+  },
   "contributors": [
     "omBratteng"
   ],
