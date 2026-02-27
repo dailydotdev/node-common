@@ -47,23 +47,19 @@ const buildLoggerConfig = (): LoggerOptions => {
     );
   }
 
-  if (env.OTEL_LOGGER_FORMAT === 'otel') {
-    return {
-      ...baseOptions,
-      timestamp: () => `,"timestamp":"${Date.now()}000000"`,
-      messageKey: 'body',
-      formatters: {
-        level: (severity, level) => ({
-          severityText: severity.toUpperCase(),
-          severityNumber:
-            OTEL_SEV_MAPPING[level as keyof typeof OTEL_SEV_MAPPING] ||
-            OTEL_SEV_MAPPING[30], // default to INFO
-        }),
-      },
-    };
-  }
-
-  return baseOptions;
+  return {
+    ...baseOptions,
+    timestamp: () => `,"timeUnixNano":"${Date.now()}000000"`,
+    messageKey: 'body',
+    formatters: {
+      level: (severity, level) => ({
+        severityText: severity.toUpperCase(),
+        severityNumber:
+          OTEL_SEV_MAPPING[level as keyof typeof OTEL_SEV_MAPPING] ||
+          OTEL_SEV_MAPPING[30], // default to INFO
+      }),
+    },
+  };
 };
 
 /** Pino logger configuration for the current environment. */
