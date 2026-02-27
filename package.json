@@ -32,6 +32,16 @@
         "default": "./dist/telemetry/index.cjs"
       }
     },
+    "./telemetry/plugin": {
+      "import": {
+        "types": "./dist/telemetry/plugin.d.ts",
+        "default": "./dist/telemetry/plugin.js"
+      },
+      "require": {
+        "types": "./dist/telemetry/plugin.d.cts",
+        "default": "./dist/telemetry/plugin.cjs"
+      }
+    },
     "./utils": {
       "import": {
         "types": "./dist/utils/index.d.ts",
@@ -60,6 +70,9 @@
       ],
       "telemetry": [
         "dist/telemetry/index.d.ts"
+      ],
+      "telemetry/plugin": [
+        "dist/telemetry/plugin.d.ts"
       ],
       "utils": [
         "dist/utils/index.d.ts"
