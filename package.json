@@ -1,6 +1,6 @@
 {
   "name": "@dailydotdev/node-common",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Shared packages for daily.dev Node.js projects",
   "license": "AGPL-3.0",
   "repository": {
@@ -23,7 +23,9 @@
       }
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup && cp -r src/types dist",
     "dev": "tsup --watch",
