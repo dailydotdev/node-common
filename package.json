@@ -12,15 +12,61 @@
   ],
   "type": "module",
   "exports": {
-    "./*": {
+    "./logger": {
       "import": {
-        "types": "./dist/*/*.d.ts",
-        "default": "./dist/*/*.js"
+        "types": "./dist/logger/index.d.ts",
+        "default": "./dist/logger/index.js"
       },
       "require": {
-        "types": "./dist/*/*.d.cts",
-        "default": "./dist/*/*.cjs"
+        "types": "./dist/logger/index.d.cts",
+        "default": "./dist/logger/index.cjs"
       }
+    },
+    "./telemetry": {
+      "import": {
+        "types": "./dist/telemetry/index.d.ts",
+        "default": "./dist/telemetry/index.js"
+      },
+      "require": {
+        "types": "./dist/telemetry/index.d.cts",
+        "default": "./dist/telemetry/index.cjs"
+      }
+    },
+    "./utils": {
+      "import": {
+        "types": "./dist/utils/index.d.ts",
+        "default": "./dist/utils/index.js"
+      },
+      "require": {
+        "types": "./dist/utils/index.d.cts",
+        "default": "./dist/utils/index.cjs"
+      }
+    },
+    "./utils/env": {
+      "import": {
+        "types": "./dist/utils/env.d.ts",
+        "default": "./dist/utils/env.js"
+      },
+      "require": {
+        "types": "./dist/utils/env.d.cts",
+        "default": "./dist/utils/env.cjs"
+      }
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "logger": [
+        "dist/logger/index.d.ts"
+      ],
+      "telemetry": [
+        "dist/telemetry/index.d.ts"
+      ],
+      "utils": [
+        "dist/utils/index.d.ts"
+      ],
+      "utils/env": [
+        "dist/utils/env.d.ts"
+      ]
     }
   },
   "files": [
