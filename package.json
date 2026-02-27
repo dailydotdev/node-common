@@ -2,7 +2,7 @@
   "name": "@dailydotdev/node-common",
   "version": "0.0.3",
   "description": "Shared packages for daily.dev Node.js projects",
-  "license": "BSD-3-Clause",
+  "license": "AGPL-3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dailydotdev/node-common.git"
@@ -13,7 +13,6 @@
   "type": "module",
   "exports": {
     "./*": {
-      "typescript": "./src/*/*.ts",
       "import": {
         "types": "./dist/*/*.d.ts",
         "default": "./dist/*/*.js"
@@ -24,12 +23,9 @@
       }
     }
   },
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist"],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && cp -r src/types dist",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
