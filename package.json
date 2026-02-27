@@ -32,7 +32,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@google-cloud/pino-logging-gcp-config": "^1.3.1",
